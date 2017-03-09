@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+}
+
+.player-list-container {
+    margin-top: 10px;
+}
+
+.player-list-container .player-list-card {
+    margin: 5px;
+}
+
+.player-list-container>div {
+    flex-wrap: wrap;
+}
