@@ -35,3 +35,10 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+
+# Ignore auto created js and map files converted from ts
+football-club/app/*.js
+football-club/app/*.map
+football-club/app/components/*.js
+football-club/app/components/*.map
