@@ -22,7 +22,8 @@
             // остальные пакеты
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-            'hammerjs': 'npm:hammerjs/hammer.js'
+            'hammerjs': 'npm:hammerjs/hammer.js',
+            'ng2-charts': 'npm:ng2-charts/bundles/ng2-charts.umd.js'
         },
         // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
         packages: {

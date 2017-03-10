@@ -12,6 +12,7 @@ import {
   MdGridListModule,
   MdIconRegistry
 } from '@angular/material';
+import { ChartsModule } from 'ng2-charts';
 import { AppComponent }   from './components/app.component';
 import { AppRoutingModule }   from './app-routing.module';
 import { PlayerListComponent }   from './components/player-list.component';
@@ -27,6 +28,7 @@ import 'hammerjs';
       FormsModule,
       AppRoutingModule,
       FlexLayoutModule.forRoot(),
+      ChartsModule,
       MdInputModule,
       MdCardModule,
       MdButtonModule,

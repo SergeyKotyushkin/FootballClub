@@ -8,6 +8,13 @@
                     <img src="http://placehold.it/350x50">
                     <div>Games: {{player.playerStatistics.gamesCount}}</div>
                     <div>W/L: {{player.playerStatistics.getWinsPercent()}}</div>
+                    <canvas baseChart
+                      [data]="doughnutChartData"
+                      [labels]="doughnutChartLabels"
+                      [chartType]="doughnutChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)">
+                    </canvas>
                 </md-card-content>
             </md-card>
         </div>
