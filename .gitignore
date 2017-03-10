@@ -42,3 +42,7 @@ football-club/app/*.js
 football-club/app/*.map
 football-club/app/components/*.js
 football-club/app/components/*.map
+football-club/app/services/*.js
+football-club/app/services/*.map
+football-club/app/view-models/*.js
+football-club/app/view-models/*.map

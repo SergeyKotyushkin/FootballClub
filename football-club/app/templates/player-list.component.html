@@ -1,6 +1,6 @@
 <div class="player-list-container">
     <div fxLayout="row" fxLayoutAlign="space-around center">
-        <div class="blocks" *ngFor="let player of players;" fxFlex.xs="100%" fxFlex.sm="33%" fxFlex.md="25%">
+        <div *ngFor="let player of players;" fxFlex.xs="100%" fxFlex.sm="33%" fxFlex.md="25%">
             <md-card class="player-list-card">
                 <img md-card-image src="http://placehold.it/350x150">
                 <md-card-title>{{player.name + " " + player.surname}}</md-card-title>
@@ -9,6 +9,9 @@
                     <div>Games: {{player.gamesCount}}</div>
                     <div>W/L: {{player.winPercent}}</div>
                 </md-card-content>
+                <md-card-actions align="center">
+                    <button md-button color="primary">More Info</button>
+                </md-card-actions>
             </md-card>
         </div>
     </div>
