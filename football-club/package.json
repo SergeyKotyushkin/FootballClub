@@ -4,7 +4,7 @@
   "description": "The sample app for our local football club",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",
     "tsc": "tsc",
     "tsc:w": "tsc -w"

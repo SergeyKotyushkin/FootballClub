@@ -3,15 +3,19 @@ import { PlayerViewModel } from '../view-models/player.view-model';
 import { PlayerService } from '../services/player.service';
 
 @Component({
-    selector: 'player-list-app',
-    templateUrl: './app/templates/player-list.component.html',
+    moduleId: module.id,
+    selector: 'player-list-content',
+    templateUrl: '../templates/player-list.template.html',
     providers: [PlayerService]
 })
 export class PlayerListComponent {
 
     players: PlayerViewModel[] = [];
 
-    constructor(private playerService: PlayerService) {
-        playerService.getPlayers().then(players => this.players = players);
+    constructor(private _playerService: PlayerService) {
+      let withStatistics = true;
+      _playerService
+          .getPlayers(withStatistics)
+          .then(players => this.players = players);
     }
 }

@@ -1,5 +1,19 @@
+import { PlayerStatisticsViewModel } from './player-statistics.view-model';
+
 export class PlayerViewModel {
-    constructor(public id: string, public name: string, public surname: string,
-        public gamesCount: number, public winPercent: string,
-        public position: string) { }
+
+    id: string;
+    name: string;
+    surname: string;
+    position: string;
+    playerStatistics: PlayerStatisticsViewModel;
+
+    constructor(id: string, name: string, surname: string, position: string,
+        playerStatistics: PlayerStatisticsViewModel = null) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.position = position;
+        this.playerStatistics = playerStatistics;
+    }
 }

@@ -1,0 +1,15 @@
+<div class="player-container" *ngIf="player != null">
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxFlex="90%">
+            <md-card class="player-card">
+                <md-card-title>{{player.name + " " + player.surname}}</md-card-title>
+                <md-card-subtitle>{{player.position}}</md-card-subtitle>
+                <md-card-content *ngIf="player.playerStatistics != null">
+                    <img src="http://placehold.it/350x50">
+                    <div>Games: {{player.playerStatistics.gamesCount}}</div>
+                    <div>W/L: {{player.playerStatistics.getWinsPercent()}}</div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</div>

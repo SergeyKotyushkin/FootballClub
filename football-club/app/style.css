@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 
-.player-list-container {
+.router-outlet-content {
     margin-top: 10px;
 }
 
