@@ -88,6 +88,6 @@ export class PlayerComponent implements OnInit {
 
     private _onGetPlayer(playerModel: PlayerModel): void {
         this._playerModel = playerModel;
-        this.playerViewModel = this._playerService.convertToViewModel(playerModel);
+        this.playerViewModel = this._playerService.convertToPlayerViewModel(playerModel);
     }
 }

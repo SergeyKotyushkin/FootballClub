@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PlayerViewModel } from '../view-models/player.view-model';
+import { PlayerListPlayerViewModel } from '../view-models/player-list-player.view-model';
 import { PlayerService } from '../services/player.service';
 import { PlayerStatisticsService } from '../services/player-statistics.service';
 
@@ -11,7 +11,7 @@ import { PlayerStatisticsService } from '../services/player-statistics.service';
 })
 export class PlayerListComponent {
 
-    players: PlayerViewModel[] = [];
+    players: PlayerListPlayerViewModel[] = [];
 
     constructor(private _playerService: PlayerService) {
         let withStatistics = true;
@@ -19,7 +19,7 @@ export class PlayerListComponent {
             .getPlayers(withStatistics)
             .then(players => players.forEach(
                 (playerModel) => {
-                    this.players.push(_playerService.convertToViewModel(playerModel));
+                    this.players.push(_playerService.convertToPlayerListPlayerViewModel(playerModel));
                 })
             );
     }

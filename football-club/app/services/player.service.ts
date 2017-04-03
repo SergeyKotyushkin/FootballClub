@@ -3,13 +3,14 @@ import { PlayerModel } from '../models/player.model';
 import { PlayerStatisticsModel } from '../models/player-statistics.model';
 import { PlayerViewModel } from '../view-models/player.view-model';
 import { PlayerStatisticsViewModel } from '../view-models/player-statistics.view-model';
+import { PlayerListPlayerViewModel } from '../view-models/player-list-player.view-model';
 import { PlayerStatisticsService } from './player-statistics.service';
 
 @Injectable()
 export class PlayerService {
 
     constructor(
-      private _playerStatisticsService: PlayerStatisticsService) { }
+        private _playerStatisticsService: PlayerStatisticsService) { }
 
     getPlayers(withStatistics: boolean): Promise<PlayerModel[]> {
         return new Promise<PlayerModel[]>(
@@ -21,13 +22,23 @@ export class PlayerService {
             (resolve, reject) => resolve(this._loadPlayerAsync(playerId)))
     }
 
-    convertToViewModel(playerModel: PlayerModel): PlayerViewModel {
+    convertToPlayerViewModel(playerModel: PlayerModel): PlayerViewModel {
         return new PlayerViewModel(
-          playerModel.id,
-          playerModel.name,
-          playerModel.surname,
-          playerModel.position,
-          this._playerStatisticsService.convertToViewModel(playerModel.playerStatistics)
+            playerModel.id,
+            playerModel.name,
+            playerModel.surname,
+            playerModel.position,
+            this._playerStatisticsService.convertToViewModel(playerModel.playerStatistics)
+        );
+    }
+
+    convertToPlayerListPlayerViewModel(playerModel: PlayerModel): PlayerListPlayerViewModel {
+        return new PlayerListPlayerViewModel(
+            playerModel.id,
+            playerModel.name,
+            playerModel.surname,
+            playerModel.position,
+            this._playerStatisticsService.convertToViewModel(playerModel.playerStatistics)
         );
     }
 
