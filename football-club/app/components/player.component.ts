@@ -19,75 +19,50 @@ export class PlayerComponent implements OnInit {
     private _playerModel: PlayerModel;
 
     public playerViewModel: PlayerViewModel;
-    public JSON;
-    @ViewChild('donut') donut: ElementRef;
 
-    public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-    public doughnutChartData: number[] = [350, 450, 100];
-    public doughnutChartType: string = 'doughnut';
-
-    // events
-    public chartClicked(e: any): void {
-        console.log(e);
-    }
-
-    public chartHovered(e: any): void {
-        console.log(e);
-    }
+    public chartWinLoses = {
+        labels: ["Wins", "Loses"],
+        colors: [{ backgroundColor: ["#c25", "#25c"] }],
+        data: null,
+        type: 'doughnut',
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+              display: true,
+              position: 'bottom',
+              fullWidth: true,
+              labels: {
+                fontStyle: 'bold'
+              }
+            }
+        }
+    };
 
     constructor(
         private _playerService: PlayerService,
         private _playerStatisticsService: PlayerStatisticsService,
         private _route: ActivatedRoute,
         private _location: Location
-    ) {
-      this.JSON = JSON;
-    }
+    ) { }
 
     ngOnInit(): void {
         this._route.params
             .switchMap((params: Params) => this._playerService.getPlayer(params['id']))
             .subscribe(p => {
-              this._onGetPlayer(p);
-              this.doughnutChartData = [p.playerStatistics.winsCount, p.playerStatistics.gamesCount-p.playerStatistics.winsCount];
-              this.doughnutChartLabels = ["Wins", "Loses"];
+                this._onGetPlayer(p);
+                this._createChartWinLoses(p.playerStatistics);
             });
-
-        // let donutCtx = this.donut.nativeElement.getContext('2d');
-        //
-        // var data = {
-        //     labels: [
-        //         "Value A",
-        //         "Value B"
-        //     ],
-        //     datasets: [
-        //         {
-        //             "data": [101342, 55342],   // Example data
-        //             "backgroundColor": [
-        //                 "#1fc8f8",
-        //                 "#76a346"
-        //             ]
-        //         }]
-        // };
-        //
-        // var chart = new Chart(
-        //     donutCtx,
-        //     {
-        //         "type": 'doughnut',
-        //         "data": data,
-        //         "options": {
-        //             "cutoutPercentage": 50,
-        //             "animation": {
-        //                 "animateScale": true,
-        //                 "animateRotate": false
-        //             }
-        //         }
-        //     }
-        // );
     }
 
     private _onGetPlayer(playerModel: PlayerModel): void {
         this._playerModel = playerModel;
         this.playerViewModel = this._playerService.convertToPlayerViewModel(playerModel);
+    }
+
+    private _createChartWinLoses(playerStatistics: PlayerStatisticsModel): void {
+        this.chartWinLoses.data = [
+            playerStatistics.winsCount,
+            playerStatistics.gamesCount - playerStatistics.winsCount];
     }
 }

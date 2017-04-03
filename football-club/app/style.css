@@ -13,3 +13,8 @@ body {
 .player-list-container>div {
     flex-wrap: wrap;
 }
+
+.player-container .win-loses-chart-wrapper {
+    max-height: 100px;
+    max-width: 350px;
+}

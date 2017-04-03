@@ -8,13 +8,15 @@
                     <img src="http://placehold.it/350x50">
                     <div>Games: {{playerViewModel.playerStatisticsViewModel.gamesCount}}</div>
                     <div>W/L: {{playerViewModel.playerStatisticsViewModel.winsPercent}}</div>
-                    <canvas baseChart
-                      [data]="doughnutChartData"
-                      [labels]="doughnutChartLabels"
-                      [chartType]="doughnutChartType"
-                      (chartHover)="chartHovered($event)"
-                      (chartClick)="chartClicked($event)">
-                    </canvas>
+                    <div class="win-loses-chart-wrapper">
+                      <canvas baseChart class="win-loses-chart"
+                        [data]="chartWinLoses.data"
+                        [labels]="chartWinLoses.labels"
+                        [chartType]="chartWinLoses.type"
+                        [colors]="chartWinLoses.colors"
+                        [options]="chartWinLoses.options">
+                      </canvas>
+                    </div>
                 </md-card-content>
             </md-card>
         </div>
