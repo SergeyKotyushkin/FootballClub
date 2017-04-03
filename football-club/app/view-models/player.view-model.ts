@@ -6,14 +6,14 @@ export class PlayerViewModel {
     name: string;
     surname: string;
     position: string;
-    playerStatistics: PlayerStatisticsViewModel;
+    playerStatisticsViewModel: PlayerStatisticsViewModel;
 
     constructor(id: string, name: string, surname: string, position: string,
-        playerStatistics: PlayerStatisticsViewModel = null) {
+        playerStatisticsViewModel: PlayerStatisticsViewModel = null) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.position = position;
-        this.playerStatistics = playerStatistics;
+        this.playerStatisticsViewModel = playerStatisticsViewModel;
     }
 }

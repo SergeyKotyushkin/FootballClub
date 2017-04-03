@@ -1,15 +1,19 @@
 export class PlayerStatisticsViewModel {
+
+    public playerId: string;
+    public gamesCount: number;
+    public winsCount: number;
+    public winsPercent: string;
+
     constructor(
-        public playerId: string,
-        public gamesCount: number,
-        public winsCount: number) { }
+        playerId: string,
+        gamesCount: number,
+        winsCount: number,
+        winsPercent: string) {
 
-
-    getWinsPercent(): string {
-        if (this == null) {
-            return "";
-        }
-
-        return `${Math.round(this.winsCount * 100 / this.gamesCount)}%`;
+        this.playerId = playerId;
+        this.gamesCount = gamesCount;
+        this.winsCount = winsCount;
+        this.winsPercent = winsPercent;
     }
 }

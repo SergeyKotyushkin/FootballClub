@@ -1,33 +1,49 @@
 import { Injectable } from '@angular/core';
+import { PlayerModel } from '../models/player.model';
+import { PlayerStatisticsModel } from '../models/player-statistics.model';
 import { PlayerViewModel } from '../view-models/player.view-model';
 import { PlayerStatisticsViewModel } from '../view-models/player-statistics.view-model';
+import { PlayerStatisticsService } from './player-statistics.service';
 
 @Injectable()
 export class PlayerService {
 
-    getPlayers(withStatistics: boolean): Promise<PlayerViewModel[]> {
-        return new Promise<PlayerViewModel[]>(
+    constructor(
+      private _playerStatisticsService: PlayerStatisticsService) { }
+
+    getPlayers(withStatistics: boolean): Promise<PlayerModel[]> {
+        return new Promise<PlayerModel[]>(
             (resolve, reject) => resolve(this._loadPlayersAsync(withStatistics)))
     }
 
-    getPlayer(playerId: string): Promise<PlayerViewModel> {
-        return new Promise<PlayerViewModel>(
+    getPlayer(playerId: string): Promise<PlayerModel> {
+        return new Promise<PlayerModel>(
             (resolve, reject) => resolve(this._loadPlayerAsync(playerId)))
     }
 
-    private _loadPlayersAsync(withStatistics: boolean): PlayerViewModel[] {
+    convertToViewModel(playerModel: PlayerModel): PlayerViewModel {
+        return new PlayerViewModel(
+          playerModel.id,
+          playerModel.name,
+          playerModel.surname,
+          playerModel.position,
+          this._playerStatisticsService.convertToViewModel(playerModel.playerStatistics)
+        );
+    }
+
+    private _loadPlayersAsync(withStatistics: boolean): PlayerModel[] {
         return PlayerService.mockPlayers;
     }
 
-    private _loadPlayerAsync(playerId: string): PlayerViewModel {
+    private _loadPlayerAsync(playerId: string): PlayerModel {
         return PlayerService.mockPlayers.find(p => playerId === p.id);
     }
 
-    static mockPlayers: PlayerViewModel[] = [
-        new PlayerViewModel("1", "Sergey", "Kotyushkin", "attack", new PlayerStatisticsViewModel("1", 10, 4)),
-        new PlayerViewModel("2", "Player1", "Surname1", "defender", new PlayerStatisticsViewModel("2", 3, 2)),
-        new PlayerViewModel("3", "Player2", "Surname2", "goalkeeper", new PlayerStatisticsViewModel("3", 24, 20)),
-        new PlayerViewModel("4", "Player3", "Surname3", "attack", new PlayerStatisticsViewModel("4", 109, 51)),
-        new PlayerViewModel("5", "Player4", "Surname4", "defender", new PlayerStatisticsViewModel("5", 189, 76))
+    static mockPlayers: PlayerModel[] = [
+        new PlayerModel("1", "Sergey", "Kotyushkin", "attack", new PlayerStatisticsModel("1", 10, 4)),
+        new PlayerModel("2", "Player1", "Surname1", "defender", new PlayerStatisticsModel("2", 3, 2)),
+        new PlayerModel("3", "Player2", "Surname2", "goalkeeper", new PlayerStatisticsModel("3", 24, 20)),
+        new PlayerModel("4", "Player3", "Surname3", "attack", new PlayerStatisticsModel("4", 109, 51)),
+        new PlayerModel("5", "Player4", "Surname4", "defender", new PlayerStatisticsModel("5", 189, 76))
     ];
 }
