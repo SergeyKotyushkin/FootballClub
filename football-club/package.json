@@ -4,12 +4,14 @@
   "description": "The sample app for our local football club",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "lite": "lite-server",
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run server\" ",
+    "server": "node ./",
     "tsc": "tsc",
     "tsc:w": "tsc -w"
   },
   "author": "SergeyKotyushkin",
+  "license": "ISC",
+  "repository": "https://github.com/SergeyKotyushkin/FootballClub.git",
   "dependencies": {
     "@angular/common": "~2.4.0",
     "@angular/compiler": "~2.4.0",
@@ -24,10 +26,12 @@
     "angular-in-memory-web-api": "~0.2.2",
     "chart.js": "^2.5.0",
     "core-js": "^2.4.1",
+    "express": "^4.15.2",
     "hammerjs": "^2.0.8",
     "ng2-charts": "^1.5.0",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.1",
+    "serve-static": "^1.12.1",
     "systemjs": "0.19.40",
     "zone.js": "^0.7.4"
   },
