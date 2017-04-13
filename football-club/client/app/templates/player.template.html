@@ -1,0 +1,24 @@
+<div class="player-container" *ngIf="playerViewModel != null">
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxFlex="90%">
+            <md-card class="player-card">
+                <md-card-title>{{playerViewModel.name + " " + playerViewModel.surname}}</md-card-title>
+                <md-card-subtitle>{{playerViewModel.position}}</md-card-subtitle>
+                <md-card-content *ngIf="playerViewModel.playerStatisticsViewModel != null">
+                    <img src="http://placehold.it/350x50">
+                    <div>Games: {{playerViewModel.playerStatisticsViewModel.gamesCount}}</div>
+                    <div>W/L: {{playerViewModel.playerStatisticsViewModel.winsPercent}}</div>
+                    <div class="win-loses-chart-wrapper">
+                      <canvas baseChart class="win-loses-chart"
+                        [data]="chartWinLoses.data"
+                        [labels]="chartWinLoses.labels"
+                        [chartType]="chartWinLoses.type"
+                        [colors]="chartWinLoses.colors"
+                        [options]="chartWinLoses.options">
+                      </canvas>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</div>

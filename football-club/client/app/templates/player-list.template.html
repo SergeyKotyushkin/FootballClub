@@ -1,0 +1,18 @@
+<div class="player-list-container">
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div *ngFor="let playerViewModel of players;" fxFlex.xs="100%" fxFlex.sm="33%" fxFlex.md="25%">
+            <md-card class="player-list-card">
+                <img md-card-image src="http://placehold.it/350x150">
+                <md-card-title>{{playerViewModel.name + " " + playerViewModel.surname}}</md-card-title>
+                <md-card-subtitle>{{playerViewModel.position}}</md-card-subtitle>
+                <md-card-content *ngIf="playerViewModel.playerStatisticsViewModel != null">
+                    <div>Games: {{playerViewModel.playerStatisticsViewModel.gamesCount}}</div>
+                    <div>W/L: {{playerViewModel.playerStatisticsViewModel.winsPercent}}</div>
+                </md-card-content>
+                <md-card-actions align="center">
+                    <a md-button color="primary" [routerLink]="['/player', playerViewModel.id]">More Info</a>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+</div>
