@@ -48,3 +48,8 @@ football-club/client/app/view-models/*.js
 football-club/client/app/view-models/*.map
 football-club/client/app/models/*.js
 football-club/client/app/models/*.map
+
+football-club/server/**/*.js
+football-club/server/**/*.map
+
+*.env
