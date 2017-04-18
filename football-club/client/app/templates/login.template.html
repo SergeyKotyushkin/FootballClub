@@ -1,0 +1,14 @@
+<div fxFlex fxLayoutAlign="center center">
+    <md-card fxLayout="column" fxLayoutGap="10px" fxFlex.sm="50%" fxFlex.xs="90%" fxFlex="30%">
+        <h3>Login</h3>
+        <md-input-container>
+            <input mdInput placeholder="Username" [(ngModel)]="username"/>
+        </md-input-container>
+        <md-input-container>
+            <input mdInput placeholder="Password" type="password" [(ngModel)]="password">
+        </md-input-container>
+        <md-card-actions fxLayout="row" fxLayoutAlign="center center">
+            <button color="primary" md-raised-button (click)="login()">Login</button>
+        </md-card-actions>
+    </md-card>
+</div>

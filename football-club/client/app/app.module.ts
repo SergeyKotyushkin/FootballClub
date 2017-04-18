@@ -19,6 +19,7 @@ import { AppComponent }   from './components/app.component';
 import { AppRoutingModule }   from './app-routing.module';
 import { PlayerListComponent }   from './components/player-list.component';
 import { PlayerComponent }   from './components/player.component';
+import { LoginComponent }   from './components/login.component';
 import { HomeComponent }   from './components/home.component';
 import { NotFoundComponent }   from './components/not-found.component';
 import 'hammerjs';
@@ -40,8 +41,8 @@ import 'hammerjs';
       MdGridListModule
     ],
     declarations: [
-      AppComponent, PlayerListComponent, PlayerComponent, HomeComponent,
-      NotFoundComponent
+      AppComponent, PlayerListComponent, PlayerComponent, LoginComponent,
+      HomeComponent, NotFoundComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [MdInputContainer, MdIconRegistry]
