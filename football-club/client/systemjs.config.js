@@ -34,6 +34,9 @@
                 main: './main.js',
                 defaultExtension: 'js'
             },
+            common: {
+                defaultExtension: 'js'
+            },
             rxjs: {
                 defaultExtension: 'js'
             }

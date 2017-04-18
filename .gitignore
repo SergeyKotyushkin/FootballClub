@@ -52,4 +52,7 @@ football-club/client/app/models/*.map
 football-club/server/**/*.js
 football-club/server/**/*.map
 
+football-club/common/**/*.js
+football-club/common/**/*.map
+
 .env

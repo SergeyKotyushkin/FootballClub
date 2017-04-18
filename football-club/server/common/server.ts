@@ -1,7 +1,7 @@
 import * as express from 'express';
-import * as serveStatic from 'serve-static';
 import * as path from 'path';
 import { IndexRoute } from '../routes/index.route';
+import { ApiRoute } from '../routes/api.route';
 
 export class Server {
 
@@ -20,7 +20,8 @@ export class Server {
     }
 
     public config() {
-        this.app.use(serveStatic(path.join(this._rootPath, 'client'), { 'extensions': ['js', 'js.map'] }));
+        this.app.use(express.static(path.join(this._rootPath, 'client'), { extensions: ['js'] }));
+        this.app.use('/common', express.static(path.join(this._rootPath, 'common'), { extensions: ['js'] }));
         this.app.use('/node_modules', express.static(path.join(this._rootPath, 'node_modules')));
 
         this.app.use('/favicon.ico', express.static('client/favicon.ico'));
@@ -34,6 +35,9 @@ export class Server {
 
     public routes() {
         let router: express.Router = express.Router();
+        
+        //IndexRoute
+        ApiRoute.create(router);
 
         //IndexRoute
         IndexRoute.create(router);

@@ -11,16 +11,17 @@ import { PlayerStatisticsService } from '../services/player-statistics.service';
 })
 export class PlayerListComponent {
 
-    players: PlayerListPlayerViewModel[] = [];
+    public players: PlayerListPlayerViewModel[] = [];
 
-    constructor(private _playerService: PlayerService) {
-        let withStatistics = true;
+    public constructor(private _playerService: PlayerService) {
         _playerService
-            .getPlayers(withStatistics)
-            .then(players => players.forEach(
-                (playerModel) => {
-                    this.players.push(_playerService.convertToPlayerListPlayerViewModel(playerModel));
-                })
+            .getPlayers()
+            .subscribe(
+                players => players.forEach(
+                    (playerModel) => {
+                        this.players.push(_playerService.convertToPlayerListPlayerViewModel(playerModel));
+                    }),
+                error => console.log(error)
             );
     }
 }

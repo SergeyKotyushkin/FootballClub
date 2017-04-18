@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-import { PlayerModel } from '../models/player.model';
-import { PlayerStatisticsModel } from '../models/player-statistics.model';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import { HttpHelper } from 'common/helpers/http.helper';
+import { PlayerModel } from 'common/models/player.model';
+import { PlayerStatisticsModel } from 'common/models/player-statistics.model';
 import { PlayerViewModel } from '../view-models/player.view-model';
 import { PlayerStatisticsViewModel } from '../view-models/player-statistics.view-model';
 import { PlayerListPlayerViewModel } from '../view-models/player-list-player.view-model';
@@ -8,21 +13,21 @@ import { PlayerStatisticsService } from './player-statistics.service';
 
 @Injectable()
 export class PlayerService {
+    private static _playersUrl: string = 'api/players';
 
-    constructor(
+    public constructor(
+        private _http: Http,
         private _playerStatisticsService: PlayerStatisticsService) { }
 
-    getPlayers(withStatistics: boolean): Promise<PlayerModel[]> {
-        return new Promise<PlayerModel[]>(
-            (resolve, reject) => resolve(this._loadPlayersAsync(withStatistics)))
+    public getPlayers(): Observable<PlayerModel[]> {
+        return this._loadPlayersAsync();
     }
 
-    getPlayer(playerId: string): Promise<PlayerModel> {
-        return new Promise<PlayerModel>(
-            (resolve, reject) => resolve(this._loadPlayerAsync(playerId)))
+    public getPlayer(playerId: string): Observable<PlayerModel> {
+        return this._loadPlayerAsync(playerId);
     }
 
-    convertToPlayerViewModel(playerModel: PlayerModel): PlayerViewModel {
+    public convertToPlayerViewModel(playerModel: PlayerModel): PlayerViewModel {
         return new PlayerViewModel(
             playerModel.id,
             playerModel.name,
@@ -32,7 +37,7 @@ export class PlayerService {
         );
     }
 
-    convertToPlayerListPlayerViewModel(playerModel: PlayerModel): PlayerListPlayerViewModel {
+    public convertToPlayerListPlayerViewModel(playerModel: PlayerModel): PlayerListPlayerViewModel {
         return new PlayerListPlayerViewModel(
             playerModel.id,
             playerModel.name,
@@ -42,19 +47,17 @@ export class PlayerService {
         );
     }
 
-    private _loadPlayersAsync(withStatistics: boolean): PlayerModel[] {
-        return PlayerService.mockPlayers;
+
+    private _loadPlayersAsync(): Observable<PlayerModel[]> {
+        return this._http.get(PlayerService._playersUrl)
+            .map((res: Response) => HttpHelper.extractArrayData(res))
+            .catch((res: Response) => HttpHelper.handleError(res));
     }
 
-    private _loadPlayerAsync(playerId: string): PlayerModel {
-        return PlayerService.mockPlayers.find(p => playerId === p.id);
+    private _loadPlayerAsync(playerId: string): Observable<PlayerModel> {
+        let playerUrl: string = `${PlayerService._playersUrl}/${playerId}`;
+        return this._http.get(playerUrl)
+            .map((res: Response) => HttpHelper.extractObjectData(res))
+            .catch((res: Response) => HttpHelper.handleError(res));
     }
-
-    static mockPlayers: PlayerModel[] = [
-        new PlayerModel("1", "Sergey", "Kotyushkin", "attack", new PlayerStatisticsModel("1", 10, 4)),
-        new PlayerModel("2", "Player1", "Surname1", "defender", new PlayerStatisticsModel("2", 3, 2)),
-        new PlayerModel("3", "Player2", "Surname2", "goalkeeper", new PlayerStatisticsModel("3", 24, 20)),
-        new PlayerModel("4", "Player3", "Surname3", "attack", new PlayerStatisticsModel("4", 109, 51)),
-        new PlayerModel("5", "Player4", "Surname4", "defender", new PlayerStatisticsModel("5", 189, 76))
-    ];
 }

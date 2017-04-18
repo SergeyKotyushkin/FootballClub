@@ -13,6 +13,7 @@ import {
   MdGridListModule,
   MdIconRegistry
 } from '@angular/material';
+import { HttpModule } from '@angular/http';
 import { ChartsModule } from 'ng2-charts';
 import { AppComponent }   from './components/app.component';
 import { AppRoutingModule }   from './app-routing.module';
@@ -28,6 +29,7 @@ import 'hammerjs';
       BrowserModule,
       BrowserAnimationsModule,
       FormsModule,
+      HttpModule,
       AppRoutingModule,
       FlexLayoutModule.forRoot(),
       ChartsModule,

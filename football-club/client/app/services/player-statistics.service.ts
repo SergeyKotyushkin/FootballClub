@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PlayerStatisticsModel } from '../models/player-statistics.model';
+import { PlayerStatisticsModel } from 'common/models/player-statistics.model';
 import { PlayerStatisticsViewModel } from '../view-models/player-statistics.view-model';
 
 @Injectable()

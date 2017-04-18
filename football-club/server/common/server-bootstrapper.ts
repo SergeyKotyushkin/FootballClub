@@ -10,7 +10,7 @@ export class ServerBootstrapper {
     private _server: Server;
     private _app: express.Application;
     private _httpServer: any;
-    private _debug = debug('express:server');
+    private _debug = debug('local');
 
 
     public constructor(rootPath: string) {
