@@ -26,7 +26,7 @@ export class LoginComponent {
         let options = new RequestOptions({ headers: headers });
 
         return this.http.post(
-            PassportUrls.Local, {
+            PassportUrls.LocalLogin, {
                 username: username,
                 password: password
             }, options)
@@ -46,9 +46,5 @@ export class LoginComponent {
             },
             e => console.log(e)
             );
-    }
-
-    public logout() {
-        localStorage.removeItem("currentUser");
     }
 }

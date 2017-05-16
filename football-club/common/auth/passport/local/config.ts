@@ -5,11 +5,12 @@ import * as passportLocal from 'passport-local';
 import { UserModel } from '../../../models/user.model';
 import { AuthResult } from '../../../models/auth-result.model';
 import { MockUsers } from '../../../mock/users.mock';
+import { PassportUrls } from '../../../auth/passport/common';
 
 
 export class LocalPassport {
 
-    public initialize(app: Application, url: string) {
+    public initialize(app: Application) {
 
         app.use(passport.initialize());
         app.use(passport.session());
@@ -50,10 +51,15 @@ export class LocalPassport {
             err ? done(err) : done(null, authResult);
         });
 
-        app.post(url,
+        app.post(PassportUrls.LocalLogin,
             passport.authenticate('local'),
             (req: Request, res: Response) => res.json(req.user)
         );
+
+        app.get(PassportUrls.LocalLogout, (req: Request, res: Response) => {
+            req.logout();
+            res.json(true);
+        });
     }
 
     private _findUser(username: string, password: string): [Error, AuthResult] {

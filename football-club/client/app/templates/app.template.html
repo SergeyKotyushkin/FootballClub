@@ -16,9 +16,9 @@
         <md-icon>exit_to_app</md-icon>
         <span>Login</span>
     </a>
-    <a md-button routerLink="/logout" *ngIf="IsAuthenticated()">
+    <a md-button (click)="logout()" *ngIf="IsAuthenticated()">
         <md-icon>account_circle</md-icon>
-        <span>HERE</span>
+        <span>{{UserName + ': LogOut'}}</span>
     </a>
 </md-toolbar>
 <div class="router-outlet-content">

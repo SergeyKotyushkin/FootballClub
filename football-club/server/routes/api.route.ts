@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { BaseRoute } from '../common/base.route';
 import { PlayerModel } from '../../common/models/player.model';
 import { PlayerStatisticsModel } from '../../common/models/player-statistics.model';
+import { AuthResult } from '../../common/models/auth-result.model';
 import * as path from 'path';
 
 export class ApiRoute extends BaseRoute {
@@ -16,6 +17,10 @@ export class ApiRoute extends BaseRoute {
         router.get("/api/players", (req: Request, res: Response, next: NextFunction) => {
             new ApiRoute().players(req, res, next);
         });
+
+        router.get("/api/auth-result", (req: Request, res: Response, next: NextFunction) => {
+            new ApiRoute().authResult(req, res, next);
+        });
     }
 
     public constructor() {
@@ -29,6 +34,10 @@ export class ApiRoute extends BaseRoute {
 
     private players(req: Request, res: Response, next: NextFunction) {
         res.json(this._mockPlayers);
+    }
+
+    private authResult(req: Request, res: Response, next: NextFunction) {
+        res.json(req.user || new AuthResult(null));
     }
 
     private _mockPlayers: PlayerModel[] = [
