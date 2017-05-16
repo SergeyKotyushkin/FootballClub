@@ -12,9 +12,13 @@
         <span>Games</span>
     </a>
     <span class="flex-filler"></span>
-    <a md-button routerLink="/login">
+    <a md-button routerLink="/login" *ngIf="!IsAuthenticated()">
         <md-icon>exit_to_app</md-icon>
         <span>Login</span>
+    </a>
+    <a md-button routerLink="/logout" *ngIf="IsAuthenticated()">
+        <md-icon>account_circle</md-icon>
+        <span>HERE</span>
     </a>
 </md-toolbar>
 <div class="router-outlet-content">

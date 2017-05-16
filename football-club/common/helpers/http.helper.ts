@@ -11,6 +11,10 @@ export class HttpHelper {
         return res.json() || {};
     }
 
+    public static extractAuthData(res: Response) {
+        return res.json();
+    }
+
     public static handleError(error: Response | any) {
         let errMsg: string;
         if (error instanceof Response) {
