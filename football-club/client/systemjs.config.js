@@ -26,12 +26,16 @@
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
             'hammerjs': 'npm:hammerjs/hammer.js',
-            'ng2-charts': 'npm:ng2-charts/bundles/ng2-charts.umd.js'
+            'ng2-charts': 'npm:ng2-charts/bundles/ng2-charts.umd.js',
+            'passport': 'npm:passport/lib/index.js'
         },
         // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
         packages: {
             app: {
                 main: './main.js',
+                defaultExtension: 'js'
+            },
+            common: {
                 defaultExtension: 'js'
             },
             rxjs: {

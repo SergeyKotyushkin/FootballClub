@@ -11,6 +11,15 @@
         <md-icon>list</md-icon>
         <span>Games</span>
     </a>
+    <span class="flex-filler"></span>
+    <a md-button routerLink="/login" *ngIf="!isAuthenticated" [disabled]="isAuthBeingChecking">
+        <md-icon>exit_to_app</md-icon>
+        <span>Login</span>
+    </a>
+    <a md-button (click)="logout()" *ngIf="isAuthenticated" [disabled]="isAuthBeingChecking">
+        <md-icon>account_circle</md-icon>
+        <span>{{username + ': LogOut'}}</span>
+    </a>
 </md-toolbar>
 <div class="router-outlet-content">
     <router-outlet></router-outlet>
