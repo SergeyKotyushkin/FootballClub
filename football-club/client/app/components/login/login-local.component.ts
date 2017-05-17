@@ -4,15 +4,15 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { PassportUrls } from 'common/auth/passport/common';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { HttpHelper } from '../helpers/http.helper';
+import { HttpHelper } from '../../helpers/http.helper';
 import { AuthResult } from 'common/models/auth-result.model';
 
 @Component({
     moduleId: module.id,
-    selector: 'login-content',
-    templateUrl: '../templates/login.template.html'
+    selector: 'login-local-content',
+    templateUrl: '../../templates/login/login-local.template.html'
 })
-export class LoginComponent {
+export class LoginLocalComponent {
 
     public username: string;
     public password: string;

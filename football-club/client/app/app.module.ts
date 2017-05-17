@@ -8,6 +8,7 @@ import { LoginModule }   from './modules/login.module';
 import { AppRoutingModule }   from './app-routing.module';
 import { CustomMaterialModule } from './modules/custom-material.module';
 import { AppComponent }   from './components/app.component';
+import { CanActivateUnAuthenticated }   from './helpers/can-activate-un-authenticated.helper';
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { AppComponent }   from './components/app.component';
         CustomMaterialModule
     ],
     declarations: [AppComponent],
+    providers: [CanActivateUnAuthenticated],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
