@@ -12,7 +12,6 @@ import { HttpHelper } from '../helpers/http.helper';
 })
 export class AppComponent {
 
-
     public constructor(private _http: Http, private _router: Router) {
         this.isAuthBeingChecking = true;
 

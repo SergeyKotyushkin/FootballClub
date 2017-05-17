@@ -1,6 +1,5 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import { PlayerModel } from 'common/models/player.model';
 import { PlayerStatisticsModel } from 'common/models/player-statistics.model';
@@ -42,8 +41,7 @@ export class PlayerComponent implements OnInit {
     constructor(
         private _playerService: PlayerService,
         private _playerStatisticsService: PlayerStatisticsService,
-        private _route: ActivatedRoute,
-        private _location: Location
+        private _route: ActivatedRoute
     ) { }
 
     ngOnInit(): void {
