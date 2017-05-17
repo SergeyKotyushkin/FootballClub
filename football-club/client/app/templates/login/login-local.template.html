@@ -5,10 +5,10 @@
             <input mdInput placeholder="Username" [(ngModel)]="username"/>
         </md-input-container>
         <md-input-container>
-            <input mdInput placeholder="Password" type="password" [(ngModel)]="password">
+            <input mdInput placeholder="Password" type="password" [(ngModel)]="password" (keyup.enter)="login()">
         </md-input-container>
         <md-card-actions fxLayout="row" fxLayoutAlign="center center">
-            <button color="primary" md-raised-button (click)="login($event, username, password)">Login</button>
+            <button color="primary" md-raised-button (click)="login()">Login</button>
         </md-card-actions>
     </md-card>
 </div>

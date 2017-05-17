@@ -20,14 +20,20 @@ export class LoginLocalComponent {
 
     public constructor(private http: Http, private _router: Router, private _authService: AuthService) { }
 
-    public login($event: Event, username: string, password: string) {
+    public login(): void {
+
+        if (!this.username.trim().length || !this.password.trim().length) {
+            alert('Please, fill both fields!');
+            return;
+        }
+
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
         this.http
             .post(PassportUrls.LocalLogin, {
-                username: username,
-                password: password
+                username: this.username,
+                password: this.password
             }, options)
             .map(HttpHelper.extractAuthData)
             .catch(HttpHelper.handleError)
