@@ -1,7 +1,12 @@
 import * as express from 'express';
 import * as path from 'path';
+import * as cookieParser from 'cookie-parser';
+import * as bodyParser from 'body-parser';
+import * as passport from 'passport';
+import expressSession = require('express-session');
 import { IndexRoute } from '../routes/index.route';
 import { ApiRoute } from '../routes/api.route';
+import { AuthRoute } from '../routes/auth.route';
 
 export class Server {
 
@@ -26,6 +31,11 @@ export class Server {
 
         this.app.use('/favicon.ico', express.static('client/favicon.ico'));
 
+        this.app.use(cookieParser());
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(expressSession({ secret: 'true' }));
+
         //catch 404 and forward to error handler
         this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
             err.status = 404;
@@ -35,8 +45,11 @@ export class Server {
 
     public routes() {
         let router: express.Router = express.Router();
-        
-        //IndexRoute
+
+        //AuthRoute
+        AuthRoute.create(this.app);
+
+        //ApiRoute
         ApiRoute.create(router);
 
         //IndexRoute

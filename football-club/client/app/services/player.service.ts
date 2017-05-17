@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { HttpHelper } from 'common/helpers/http.helper';
+import { HttpHelper } from '../helpers/http.helper';
 import { PlayerModel } from 'common/models/player.model';
 import { PlayerStatisticsModel } from 'common/models/player-statistics.model';
 import { PlayerViewModel } from '../view-models/player.view-model';

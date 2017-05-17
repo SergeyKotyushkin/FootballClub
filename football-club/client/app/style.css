@@ -18,3 +18,7 @@ body {
     max-height: 100px;
     max-width: 350px;
 }
+
+.flex-filler {
+    flex: 1 1 auto;
+}
