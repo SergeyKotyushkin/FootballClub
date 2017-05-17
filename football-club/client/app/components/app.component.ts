@@ -1,4 +1,4 @@
-import { Component, AfterContentChecked } from '@angular/core';
+import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, Event as RoterEvent, NavigationStart } from '@angular/router';
 import { AuthResult } from 'common/models/auth-result.model';
