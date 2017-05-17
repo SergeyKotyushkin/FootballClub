@@ -12,13 +12,13 @@
         <span>Games</span>
     </a>
     <span class="flex-filler"></span>
-    <a md-button routerLink="/login" *ngIf="!IsAuthenticated()">
+    <a md-button routerLink="/login" *ngIf="!isAuthenticated" [disabled]="isAuthBeingChecking">
         <md-icon>exit_to_app</md-icon>
         <span>Login</span>
     </a>
-    <a md-button (click)="logout()" *ngIf="IsAuthenticated()">
+    <a md-button (click)="logout()" *ngIf="isAuthenticated" [disabled]="isAuthBeingChecking">
         <md-icon>account_circle</md-icon>
-        <span>{{UserName + ': LogOut'}}</span>
+        <span>{{username + ': LogOut'}}</span>
     </a>
 </md-toolbar>
 <div class="router-outlet-content">

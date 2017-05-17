@@ -5,7 +5,7 @@ import {PassportUrls} from 'common/auth/passport/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { HttpHelper } from 'common/helpers/http.helper';
+import { HttpHelper } from '../helpers/http.helper';
 import { AuthResult } from 'common/models/auth-result.model';
 
 @Component({
