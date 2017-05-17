@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { HttpHelper } from '../../helpers/http.helper';
 import { AuthResult } from 'common/models/auth-result.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     moduleId: module.id,
@@ -17,7 +18,7 @@ export class LoginLocalComponent {
     public username: string;
     public password: string;
 
-    public constructor(private http: Http, private _router: Router) { }
+    public constructor(private http: Http, private _router: Router, private _authService: AuthService) { }
 
     public login($event: Event, username: string, password: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -34,7 +35,7 @@ export class LoginLocalComponent {
                 if (!authResult.result) {
                     alert(authResult.failtureMessage);
                 } else {
-                    localStorage.setItem("currentAuthResult", JSON.stringify(authResult));
+                    this._authService.login(authResult);
                     this._router.navigateByUrl('');
                 }
             }, console.log);

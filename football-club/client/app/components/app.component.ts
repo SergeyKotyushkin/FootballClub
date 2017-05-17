@@ -4,6 +4,7 @@ import { Router, Event as RoterEvent, NavigationStart } from '@angular/router';
 import { AuthResult } from 'common/models/auth-result.model';
 import { PassportUrls } from 'common/auth/passport/common';
 import { HttpHelper } from '../helpers/http.helper';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     moduleId: module.id,
@@ -12,7 +13,7 @@ import { HttpHelper } from '../helpers/http.helper';
 })
 export class AppComponent {
 
-    public constructor(private _http: Http, private _router: Router) {
+    public constructor(private _http: Http, private _router: Router, private _authService: AuthService) {
         this.isAuthBeingChecking = true;
 
         this._router.events
@@ -38,7 +39,13 @@ export class AppComponent {
                     console.log("An error has been occured on logout");
                 }
 
-                localStorage.removeItem("currentAuthResult");
+                this._authService.logout();
+
+                if (this._router.url === '/') {
+                    this._updateAuthResult();
+                    return;
+                }
+
                 this._router.navigateByUrl('');
             });
     }
@@ -56,7 +63,7 @@ export class AppComponent {
                 this.isAuthenticated = authResult ? authResult.result : false;
                 this.username = this.isAuthenticated ? authResult.user.username : null;
             }, (error: any) => {
-                localStorage.removeItem("currentAuthResult");
+                this._authService.logout();
                 this._router.navigateByUrl('');
             }, () => {
                 this.isAuthBeingChecking = false;

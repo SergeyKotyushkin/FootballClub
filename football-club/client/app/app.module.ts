@@ -9,6 +9,7 @@ import { AppRoutingModule }   from './app-routing.module';
 import { CustomMaterialModule } from './modules/custom-material.module';
 import { AppComponent }   from './components/app.component';
 import { CanActivateUnAuthenticated }   from './helpers/can-activate-un-authenticated.helper';
+import { AuthService }   from './services/auth.service';
 
 @NgModule({
     imports: [
@@ -22,7 +23,7 @@ import { CanActivateUnAuthenticated }   from './helpers/can-activate-un-authenti
         CustomMaterialModule
     ],
     declarations: [AppComponent],
-    providers: [CanActivateUnAuthenticated],
+    providers: [CanActivateUnAuthenticated, AuthService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

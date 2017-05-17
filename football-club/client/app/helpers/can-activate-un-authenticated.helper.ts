@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { AuthResult } from 'common/models/auth-result.model';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class CanActivateUnAuthenticated implements CanActivate {
 
-    public constructor(private _router: Router) { }
+    public constructor(private _router: Router, private _authService: AuthService) { }
 
     public canActivate(): Observable<boolean> | Promise<boolean> | boolean {
 
-        let authResultString: string = localStorage.getItem("currentAuthResult");
-        let authResult: AuthResult = authResultString ? JSON.parse(authResultString) : null;
+        let result: boolean = this._authService.isAthenticated();
 
-        let result: boolean = authResult ? !authResult.result : true;
-
-        if (!result) {
+        if (result) {
             this._router.navigateByUrl('');
         }
 
-        return result;
+        return !result;
     }
 }
