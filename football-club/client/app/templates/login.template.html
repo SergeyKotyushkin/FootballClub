@@ -8,7 +8,7 @@
             <input mdInput placeholder="Password" type="password" [(ngModel)]="password">
         </md-input-container>
         <md-card-actions fxLayout="row" fxLayoutAlign="center center">
-            <button color="primary" md-raised-button (click)="login()">Login</button>
+            <button color="primary" md-raised-button (click)="login($event, username, password)">Login</button>
         </md-card-actions>
     </md-card>
 </div>

@@ -1,50 +1,26 @@
 import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule }   from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-  MaterialModule,
-  MdInputModule,
-  MdCardModule,
-  MdButtonModule,
-  MdSelectModule,
-  MdInputContainer,
-  MdGridListModule,
-  MdIconRegistry
-} from '@angular/material';
-import { HttpModule } from '@angular/http';
-import { ChartsModule } from 'ng2-charts';
-import { AppComponent }   from './components/app.component';
+import { PageModule }   from './modules/page.module';
+import { HomeModule }   from './modules/home.module';
+import { NotFoundModule }   from './modules/not-found.module';
+import { PlayerListModule }   from './modules/player-list.module';
+import { PlayerModule }   from './modules/player.module';
+import { LoginModule }   from './modules/login.module';
 import { AppRoutingModule }   from './app-routing.module';
-import { PlayerListComponent }   from './components/player-list.component';
-import { PlayerComponent }   from './components/player.component';
-import { LoginComponent }   from './components/login.component';
-import { HomeComponent }   from './components/home.component';
-import { NotFoundComponent }   from './components/not-found.component';
-import 'hammerjs';
+import { CustomMaterialModule } from './modules/custom-material.module';
+import { AppComponent }   from './components/app.component';
 
 @NgModule({
-    imports:      [
-      MaterialModule,
-      BrowserModule,
-      BrowserAnimationsModule,
-      FormsModule,
-      HttpModule,
-      AppRoutingModule,
-      FlexLayoutModule.forRoot(),
-      ChartsModule,
-      MdInputModule,
-      MdCardModule,
-      MdButtonModule,
-      MdSelectModule,
-      MdGridListModule
+    imports: [
+        PageModule,
+        HomeModule,
+        NotFoundModule,
+        PlayerListModule,
+        PlayerModule,
+        LoginModule,
+        AppRoutingModule,
+        CustomMaterialModule
     ],
-    declarations: [
-      AppComponent, PlayerListComponent, PlayerComponent, LoginComponent,
-      HomeComponent, NotFoundComponent
-    ],
-    bootstrap:    [ AppComponent ],
-    providers: [MdInputContainer, MdIconRegistry]
+    declarations: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
