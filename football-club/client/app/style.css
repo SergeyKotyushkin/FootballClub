@@ -22,3 +22,7 @@ body {
 .flex-filler {
     flex: 1 1 auto;
 }
+
+.login-external-wrapper {
+    margin-top: 10px;
+}

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth.service';
+import { AuthResult } from 'common/models/auth-result.model';
 
 @Injectable()
 export class CanActivateUnAuthenticated implements CanActivate {
@@ -10,12 +11,13 @@ export class CanActivateUnAuthenticated implements CanActivate {
 
     public canActivate(): Observable<boolean> | Promise<boolean> | boolean {
 
-        let result: boolean = this._authService.isAthenticated();
+        return this._authService.isAuthenticated().map((isAuthenticated: boolean) => {
 
-        if (result) {
-            this._router.navigateByUrl('');
-        }
+            if (isAuthenticated) {
+                this._router.navigateByUrl('');
+            }
 
-        return !result;
+            return !isAuthenticated;
+        });
     }
 }

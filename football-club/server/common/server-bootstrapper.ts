@@ -16,7 +16,7 @@ export class ServerBootstrapper {
     public constructor(rootPath: string) {
         this._server = new Server(rootPath);
         this._app = this._server.app;
-        this._httpPort = this._normalizePort(process.env.port || '3000');
+        this._httpPort = this._normalizePort(process.env.PORT || '3000');
         this._app.set("port", this._httpPort);
     }
 

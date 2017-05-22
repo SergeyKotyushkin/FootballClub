@@ -1,10 +1,9 @@
-import { NextFunction, Request, Response, Router, Application } from 'express';
-import { BaseRoute } from '../common/base.route';
-import { LocalPassport } from '../../common/auth/passport/local/config';
+import { Application } from 'express';
+import { Passport } from '../auth/passport/config';
 
 export class AuthRoute {
     public static create(app: Application) {
-        let localPassport = new LocalPassport();
-        localPassport.initialize(app);
+
+        Passport.initialize(app);
     }
 }

@@ -1,1 +1,7 @@
-<login-local-content></login-local-content>
+<div class="login-local-wrapper">
+    <login-local-content></login-local-content>
+</div>
+<div class="login-external-wrapper" fxFlex fxLayoutAlign="center center">
+    <login-google-content *ngIf="useGoogle"></login-google-content>
+    <login-vk-content *ngIf="useVk"></login-vk-content>
+</div>

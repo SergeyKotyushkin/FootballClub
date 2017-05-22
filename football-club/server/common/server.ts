@@ -26,6 +26,7 @@ export class Server {
 
     public config() {
         this.app.use(express.static(path.join(this._rootPath, 'client'), { extensions: ['js'] }));
+        this.app.use('/static', express.static(path.join(this._rootPath, 'server/static')));
         this.app.use('/common', express.static(path.join(this._rootPath, 'common'), { extensions: ['js'] }));
         this.app.use('/node_modules', express.static(path.join(this._rootPath, 'node_modules')));
 
@@ -34,7 +35,7 @@ export class Server {
         this.app.use(cookieParser());
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
-        this.app.use(expressSession({ secret: 'true' }));
+        this.app.use(expressSession({ secret: 'true', resave: true, saveUninitialized: true }));
 
         //catch 404 and forward to error handler
         this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
