@@ -2,7 +2,6 @@ import { Application, Request, Response } from 'express';
 import passport = require('passport');
 import vk = require('passport-vkontakte');
 import { UserModel } from '../../../../common/models/user.model';
-import { AuthResult } from '../../../../common/models/auth-result.model';
 import { PassportUrls } from '../../../../common/auth/passport/common';
 import { UserService } from '../../../services/user.service';
 import * as path from 'path';
@@ -29,21 +28,12 @@ export class VkPassport {
             }, (accessToken, refreshToken, params, profile, done) => {
                 process.nextTick(() => {
                     let user: UserModel = UserService.findUserByEmail(params.email);
-                    done(null, new AuthResult(user));
+                    done(null, user);
                 });
             })
         );
 
         app.get(PassportUrls.VkLogin, passport.authenticate('vkontakte'));
-
-        app.get(PassportUrls.VkCallback,
-            passport.authenticate('vkontakte'),
-            (req: Request, res: Response) => {
-
-                let filePath: string = path.resolve(path.join('server', 'static', 'views', 'auth-loaded.html'));
-                res.sendFile(filePath)
-            }
-        );
 
         app.get(PassportUrls.VkCallback,
             passport.authenticate('vkontakte'),

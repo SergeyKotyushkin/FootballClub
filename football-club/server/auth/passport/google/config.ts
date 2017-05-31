@@ -2,7 +2,6 @@ import { Application, Request, Response } from 'express';
 import passport = require('passport');
 import google = require('passport-google-oauth');
 import { UserModel } from '../../../../common/models/user.model';
-import { AuthResult } from '../../../../common/models/auth-result.model';
 import { PassportUrls } from '../../../../common/auth/passport/common';
 import { UserService } from '../../../services/user.service';
 import * as path from 'path';
@@ -28,10 +27,10 @@ export class GooglePassport {
             }, (accessToken: string,
                 refreshToken: string,
                 profile: google.Profile,
-                done: (error: any, user?: AuthResult) => void) => {
+                done: (error: any, user?: UserModel) => void) => {
                     process.nextTick(() => {
                         let user: UserModel = UserService.findUserByEmail(profile.emails[0].value);
-                        done(null, new AuthResult(user));
+                        done(null, user);
                     });
                 })
         );

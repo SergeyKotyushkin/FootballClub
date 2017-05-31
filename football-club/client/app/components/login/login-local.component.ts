@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { PassportUrls } from 'common/auth/passport/common';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { HttpHelper } from '../../helpers/http.helper';
 import { AuthResult } from 'common/models/auth-result.model';
+import { UserModel } from 'common/models/user.model';
+import { UserWrapperModel } from 'common/models/user-wrapper.model';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -15,6 +18,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginLocalComponent {
 
+    private static _invalidCredentialsMessage = 'Invalid credentials!';
     public username: string;
     public password: string;
 
@@ -36,12 +40,19 @@ export class LoginLocalComponent {
                 password: this.password
             }, options)
             .map(HttpHelper.extractAuthData)
-            .catch(HttpHelper.handleError)
-            .subscribe((authResult: AuthResult) => {
-                if (!authResult.result) {
-                    alert(authResult.failtureMessage);
+            .map((userWrapper: UserWrapperModel) => userWrapper ? userWrapper.user : null)
+            .catch((res: Response) => {
+                console.log(res.status);
+                if (res.status === 401) {
+                    return Observable.of(null);
+                }
+                return HttpHelper.handleError(res);
+            })
+            .subscribe((user: UserModel) => {
+                if (!user) {
+                    alert(LoginLocalComponent._invalidCredentialsMessage);
                 } else {
-                    this._authService.login(authResult);
+                    this._authService.login(user);
                     this._router.navigateByUrl('');
                 }
             }, console.log);

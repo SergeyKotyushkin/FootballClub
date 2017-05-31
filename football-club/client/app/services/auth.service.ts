@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { AuthResult } from 'common/models/auth-result.model';
+import { UserModel } from 'common/models/user.model';
+import { UserWrapperModel } from 'common/models/user-wrapper.model';
 import { HttpHelper } from '../helpers/http.helper';
 
 @Injectable()
@@ -9,31 +10,32 @@ export class AuthService {
 
     public constructor(private _http: Http) { }
 
-    private _authResultKey: string = 'currentAuthResult';
-    private _authResultApiUrl: string = 'api/auth-result';
+    private _currentUserKey: string = 'currentUser';
+    private _currentUserApiUrl: string = 'api/current-user';
 
     public isAuthenticated(): Observable<boolean> {
 
         return this._http
-            .get(this._authResultApiUrl)
+            .get(this._currentUserApiUrl)
             .map(HttpHelper.extractObjectData)
-            .map((authResult: AuthResult) => authResult ? authResult.result : false)
+            .map((userWrapper: UserWrapperModel) => userWrapper && userWrapper.user)
             .catch(HttpHelper.handleError);
     }
 
-    public getAuthResult(): Observable<AuthResult> {
+    public getCurrentUser(): Observable<UserModel> {
 
         return this._http
-            .get(this._authResultApiUrl)
+            .get(this._currentUserApiUrl)
             .map(HttpHelper.extractObjectData)
+            .map((userWrapper: UserWrapperModel) => userWrapper ? userWrapper.user : null)
             .catch(HttpHelper.handleError);
     }
 
-    public login(authResult: AuthResult): void {
-        localStorage.setItem(this._authResultKey, JSON.stringify(authResult));
+    public login(user: UserModel): void {
+        localStorage.setItem(this._currentUserKey, JSON.stringify(user));
     }
 
     public logout(): void {
-        localStorage.removeItem(this._authResultKey);
+        localStorage.removeItem(this._currentUserKey);
     }
 }

@@ -3,7 +3,6 @@ import passport = require('passport');
 import local = require('passport-local');
 import * as passportLocal from 'passport-local';
 import { UserModel } from '../../../common/models/user.model';
-import { AuthResult } from '../../../common/models/auth-result.model';
 import { MockUsers } from '../../../common/mock/users.mock';
 import { PassportUrls } from '../../../common/auth/passport/common';
 import { LocalPassport } from './local/config';
@@ -39,24 +38,20 @@ export class Passport {
             });
         });
 
-        passport.serializeUser((authResult: any, done) => {
+        passport.serializeUser((user: UserModel, done) => {
 
-            if (authResult.result) {
-                done(null, authResult.user.email);
-            } else {
-                done(null, {});
-            }
+            done(null, user ? user.email : null);
         });
 
         passport.deserializeUser((email: string, done) => {
 
             if (email == null) {
-                done(null, new AuthResult(null));
+                done(null, null);
                 return;
             }
 
             let user = UserService.findUserByEmail(email);
-            done(null, new AuthResult(user));
+            done(null, user);
         });
     }
 }

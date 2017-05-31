@@ -3,7 +3,8 @@ import passport = require('passport');
 import local = require('passport-local');
 import { PassportUrls } from '../../../../common/auth/passport/common';
 import { UserService } from '../../../services/user.service';
-import { AuthResult } from '../../../../common/models/auth-result.model';
+import { UserModel } from '../../../../common/models/user.model';
+import { UserWrapperModel } from '../../../../common/models/user-wrapper.model';
 
 
 export class LocalPassport {
@@ -14,7 +15,7 @@ export class LocalPassport {
             new local.Strategy((username: string, password: string, done: any) => {
                 process.nextTick(() => {
                     let user = UserService.findUser(username, password);
-                    return done(null, new AuthResult(user));
+                    return done(null, user);
                 });
             })
         );
@@ -22,9 +23,10 @@ export class LocalPassport {
         app.post(PassportUrls.LocalLogin,
             passport.authenticate('local'),
             (req: Request, res: Response) => {
-                var authResult: AuthResult = req.user;
-                authResult.failtureMessage = authResult.result ? '' : 'Invalid credentials!';
-                res.json(authResult);
+                let user = <UserModel> req.user;
+                let userWrapper = new UserWrapperModel();
+                userWrapper.user = user;
+                res.json(userWrapper);
             }
         );
     }

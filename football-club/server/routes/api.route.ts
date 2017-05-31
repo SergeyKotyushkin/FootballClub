@@ -2,7 +2,8 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { BaseRoute } from '../common/base.route';
 import { PlayerModel } from '../../common/models/player.model';
 import { PlayerStatisticsModel } from '../../common/models/player-statistics.model';
-import { AuthResult } from '../../common/models/auth-result.model';
+import { UserModel } from '../../common/models/user.model';
+import { UserWrapperModel } from '../../common/models/user-wrapper.model';
 import * as path from 'path';
 
 export class ApiRoute extends BaseRoute {
@@ -18,8 +19,8 @@ export class ApiRoute extends BaseRoute {
             new ApiRoute().players(req, res, next);
         });
 
-        router.get("/api/auth-result", (req: Request, res: Response, next: NextFunction) => {
-            new ApiRoute().authResult(req, res, next);
+        router.get("/api/current-user", (req: Request, res: Response, next: NextFunction) => {
+            new ApiRoute().currentUser(req, res, next);
         });
     }
 
@@ -36,8 +37,11 @@ export class ApiRoute extends BaseRoute {
         res.json(this._mockPlayers);
     }
 
-    private authResult(req: Request, res: Response, next: NextFunction) {
-        res.json(req.user || new AuthResult(null));
+    private currentUser(req: Request, res: Response, next: NextFunction) {
+        let user = <UserModel>req.user;
+        let userWrapper = new UserWrapperModel();
+        userWrapper.user = user;
+        res.json(userWrapper);
     }
 
     private _mockPlayers: PlayerModel[] = [

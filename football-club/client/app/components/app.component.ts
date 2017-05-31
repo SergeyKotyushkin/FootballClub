@@ -4,10 +4,10 @@ import { Router, Event as RouterEvent, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
-import { AuthResult } from 'common/models/auth-result.model';
 import { PassportUrls } from 'common/auth/passport/common';
 import { HttpHelper } from '../helpers/http.helper';
 import { AuthService } from '../services/auth.service';
+import { UserModel } from 'common/models/user.model';
 
 @Component({
     moduleId: module.id,
@@ -35,7 +35,7 @@ export class AppComponent implements OnDestroy {
         this._router.events
             .filter((event: RouterEvent) => event instanceof NavigationStart)
             .takeUntil(this._ngUnsubscribe)
-            .subscribe((event: RouterEvent) => this._updateAuthResult());
+            .subscribe((event: RouterEvent) => this._updateUser());
     }
 
     public logout() {
@@ -57,7 +57,7 @@ export class AppComponent implements OnDestroy {
                 this._authService.logout();
 
                 if (this._router.url === '/') {
-                    this._updateAuthResult();
+                    this._updateUser();
                     return;
                 }
 
@@ -77,7 +77,7 @@ export class AppComponent implements OnDestroy {
         this._ngUnsubscribe.complete();
     }
 
-    private _updateAuthResult() {
+    private _updateUser() {
         // turn on disabling login and logout button on route changes
         //this.isAuthBeingChecking = true;
 
@@ -86,10 +86,10 @@ export class AppComponent implements OnDestroy {
         }
 
         this._authSub = this._authService
-            .getAuthResult()
-            .subscribe((authResult: AuthResult) => {
-                this.isAuthenticated = authResult ? authResult.result : false;
-                this.username = this.isAuthenticated ? authResult.user.username : null;
+            .getCurrentUser()
+            .subscribe((user: UserModel) => {
+                this.isAuthenticated = user != null;
+                this.username = this.isAuthenticated ? user.username : null;
             }, (error: any) => {
                 this._authService.logout();
                 this._router.navigateByUrl('');
