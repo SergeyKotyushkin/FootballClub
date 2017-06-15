@@ -15,15 +15,13 @@ export class LoginGoogleComponent extends LoginBaseOAuthComponent implements OnD
 
     public constructor(
         _router: Router,
-        _authService: AuthService,
-        _domSanitizer: DomSanitizer,
-        _dialog: MdDialog) {
+        _authService: AuthService) {
 
-        super(PassportUrls.GoogleLogin, _router, _authService, _domSanitizer, _dialog);
+        super(PassportUrls.GoogleLogin, _router, _authService);
     }
 
     public openDialog() {
-        super.openDialog();
+        super.openAuthWindow();
     }
 
     public ngOnDestroy() {

@@ -15,15 +15,13 @@ export class LoginVkComponent extends LoginBaseOAuthComponent implements OnDestr
 
     public constructor(
         _router: Router,
-        _authService: AuthService,
-        _domSanitizer: DomSanitizer,
-        _dialog: MdDialog) {
+        _authService: AuthService) {
 
-        super(PassportUrls.VkLogin, _router, _authService, _domSanitizer, _dialog);
+        super(PassportUrls.VkLogin, _router, _authService);
     }
 
     public openDialog() {
-        super.openDialog();
+        super.openAuthWindow();
     }
 
     public ngOnDestroy() {
